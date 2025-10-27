@@ -1,349 +1,13 @@
-// import React, { useState } from "react";
-// import { FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-
-// const Contact = () => {
-//     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-//     const [errors, setErrors] = useState({});
-//     const [status, setStatus] = useState("");
-
-//     const handleChange = (e) => {
-//         setFormData({ ...formData, [e.target.name]: e.target.value });
-//         setErrors({ ...errors, [e.target.name]: "" });
-//     };
-
-//     const validate = () => {
-//         const newErrors = {};
-//         if (!formData.name.trim()) newErrors.name = "Name is required";
-//         if (!formData.email.trim()) newErrors.email = "Email is required";
-//         else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Enter a valid email";
-//         if (!formData.message.trim()) newErrors.message = "Message is required";
-//         return newErrors;
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         const newErrors = validate();
-//         if (Object.keys(newErrors).length > 0) {
-//             setErrors(newErrors);
-//             return;
-//         }
-
-//         try {
-//             const response = await fetch("https://formspree.io/f/your_form_id", {
-//                 method: "POST",
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify(formData),
-//             });
-
-//             if (response.ok) {
-//                 setStatus("success");
-//                 setFormData({ name: "", email: "", message: "" });
-//             } else {
-//                 setStatus("error");
-//             }
-//         } catch {
-//             setStatus("error");
-//         }
-//     };
-
-//     return (
-//         <section id="contact" className="max-w-6xl mx-auto px-6 py-20 text-center">
-//             <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-900 dark:text-white">
-//                 Get In <span className="text-blue-600">Touch</span>
-//             </h2>
-
-//             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
-//                 I’m currently looking for full-time opportunities and exciting collaborations
-//                 in frontend development. Drop me a message — feel free to reach out anytime!
-//             </p>
-
-//             {/* Contact Info */}
-//             <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
-//                 <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//                     <FaEnvelope className="text-blue-600 text-xl" />
-//                     <a href="mailto:ramanarayana1228@gmail.com" className="hover:text-blue-600 transition">
-//                         ramanarayana1228@gmail.com
-//                     </a>
-//                 </div>
-//                 <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//                     <FaLinkedin className="text-blue-600 text-xl" />
-//                     <a
-//                         href="https://www.linkedin.com/in/k-ramanarayana"
-//                         target="_blank"
-//                         rel="noopener noreferrer"
-//                         className="hover:text-blue-600 transition"
-//                     >
-//                         linkedin.com/in/k-ramanarayana
-//                     </a>
-//                 </div>
-//                 <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//                     <FaMapMarkerAlt className="text-blue-600 text-xl" />
-//                     <span>Mandapeta, Andhra Pradesh</span>
-//                 </div>
-//             </div>
-
-//             {/* Contact Form */}
-//             <form
-//                 onSubmit={handleSubmit}
-//                 className="max-w-xl mx-auto bg-blue-50 dark:bg-gray-800 p-8 rounded-xl shadow-md"
-//             >
-//                 <div className="mb-4 text-left">
-//                     <label className="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
-//                     <input
-//                         type="text"
-//                         name="name"
-//                         value={formData.name}
-//                         onChange={handleChange}
-//                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-//                     />
-//                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-//                 </div>
-
-//                 <div className="mb-4 text-left">
-//                     <label className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
-//                     <input
-//                         type="email"
-//                         name="email"
-//                         value={formData.email}
-//                         onChange={handleChange}
-//                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-//                     />
-//                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-//                 </div>
-
-//                 <div className="mb-4 text-left">
-//                     <label className="block text-gray-700 dark:text-gray-300 mb-2">Message</label>
-//                     <textarea
-//                         name="message"
-//                         rows="4"
-//                         value={formData.message}
-//                         onChange={handleChange}
-//                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100"
-//                     ></textarea>
-//                     {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-//                 </div>
-//                 <button
-//                     type="submit"
-//                     className="relative px-8 py-3 text-white font-semibold rounded-lg
-//   bg-gradient-to-r from-blue-500 to-indigo-600 
-//   hover:from-indigo-500 hover:to-blue-500 
-//   shadow-md hover:shadow-blue-400/50 transition-all duration-300"
-//                 >
-//                     Send Message
-//                 </button>
-
-
-//                 {status === "success" && (
-//                     <p className="text-green-600 mt-4">✅ Message sent successfully!</p>
-//                 )}
-//                 {status === "error" && (
-//                     <p className="text-red-600 mt-4">❌ Something went wrong. Please try again.</p>
-//                 )}
-//             </form>
-//         </section>
-//     );
-// };
-
-// export default Contact;
-
-
-// import React, { useState } from "react";
-// import { FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-
-// const Contact = () => {
-//   const [formData, setFormData] = useState({
-//     name: "K. Ramanarayana",
-//     email: "ramanarayana1228@gmail.com",
-//     message: "",
-//   });
-//         const openMailInbox = () => {
-//         window.location.href = "mailto:ramanarayana1228@gmail.com?subject=Frontend Developer Inquiry&body=Hi Ramanarayana,";
-//     };
-//   const [errors, setErrors] = useState({});
-//   const [status, setStatus] = useState("");
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//     setErrors({ ...errors, [e.target.name]: "" });
-//   };
-
-//   const validate = () => {
-//     const newErrors = {};
-//     if (!formData.name.trim()) newErrors.name = "Name is required";
-//     if (!formData.email.trim()) newErrors.email = "Email is required";
-//     else if (!/\S+@\S+\.\S+/.test(formData.email))
-//       newErrors.email = "Enter a valid email";
-//     if (!formData.message.trim()) newErrors.message = "Message is required";
-//     return newErrors;
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const newErrors = validate();
-//     if (Object.keys(newErrors).length > 0) {
-//       setErrors(newErrors);
-//       return;
-//     }
-
-//     try {
-//       const response = await fetch("https://formspree.io/f/your_form_id", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData),
-//       });
-
-//       if (response.ok) {
-//         setStatus("success");
-//         setFormData({
-//           name: "K. Ramanarayana",
-//           email: "ramanarayana1228@gmail.com",
-//           message: "Hi Ramanarayana, I’d like to collaborate with you!",
-//         });
-//       } else {
-//         setStatus("error");
-//       }
-//     } catch {
-//       setStatus("error");
-//     }
-//   };
-
-//   return (
-//     <section id="contact" className="max-w-6xl mx-auto px-6 py-20 text-center">
-//       <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-900 dark:text-white">
-//         Get In <span className="text-blue-600">Touch</span>
-//       </h2>
-
-//       <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
-//         I’m currently open to new opportunities and collaborations in frontend
-//         development. Whether it’s a project, full-time role, or just a quick
-//         chat — feel free to reach out anytime!
-//       </p>
-
-//       {/* Contact Info */}
-//       <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-12">
-//         <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//           <FaEnvelope className="text-blue-600 text-xl" />
-//           <a
-//             href="mailto:ramanarayana1228@gmail.com"
-//             className="hover:text-blue-600 transition"
-//           >
-//             ramanarayana1228@gmail.com
-//           </a>
-//         </div>
-//         <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//           <FaLinkedin className="text-blue-600 text-xl" />
-//           <a
-//             href="https://www.linkedin.com/in/k-ramanarayana"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             className="hover:text-blue-600 transition"
-//           >
-//             linkedin.com/in/k-ramanarayana
-//           </a>
-//         </div>
-//         <div className="flex items-center space-x-3 text-gray-800 dark:text-gray-200">
-//           <FaMapMarkerAlt className="text-blue-600 text-xl" />
-//           <span>Mandapeta, Andhra Pradesh</span>
-//         </div>
-//       </div>
-
-//       {/* Contact Form */}
-//       <form
-//         onSubmit={handleSubmit}
-//         className="max-w-xl mx-auto bg-blue-50 dark:bg-gray-800 p-8 rounded-xl shadow-md"
-//       >
-//         <div className="mb-4 text-left">
-//           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-//             Name
-//           </label>
-//           <input
-//             type="text"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleChange}
-//             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
-//             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
-//             text-gray-800 dark:text-gray-100"
-//           />
-//           {errors.name && (
-//             <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-//           )}
-//         </div>
-
-//         <div className="mb-4 text-left">
-//           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-//             Email
-//           </label>
-//           <input
-//             type="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
-//             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
-//             text-gray-800 dark:text-gray-100"
-//           />
-//           {errors.email && (
-//             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-//           )}
-//         </div>
-
-//         <div className="mb-4 text-left">
-//           <label className="block text-gray-700 dark:text-gray-300 mb-2">
-//             Message
-//           </label>
-//           <textarea
-//             name="message"
-//             rows="4"
-//             value={formData.message}
-//             onChange={handleChange}
-//             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
-//             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
-//             text-gray-800 dark:text-gray-100"
-//           ></textarea>
-//           {errors.message && (
-//             <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-//           )}
-//         </div>
-
-//         <button
-//           type="submit"
-//           className="relative px-8 py-3 text-white font-semibold rounded-lg
-//           bg-gradient-to-r from-blue-500 to-indigo-600 
-//           hover:from-indigo-500 hover:to-blue-500 
-//           shadow-md hover:shadow-blue-400/50 transition-all duration-300"
-//         >
-//           Send Message
-//         </button>
-//                <Button onClick={openMailInbox} variant='contained' color='primary' style={{margin: '5px', fontSize: '8px', alignItems: 'center', height: '29px', width: '150px', textTransform: 'none'}}></Button>
-
-//         {status === "success" && (
-//           <p className="text-green-600 mt-4">
-//             ✅ Message sent successfully!
-//           </p>
-//         )}
-//         {status === "error" && (
-//           <p className="text-red-600 mt-4">
-//             ❌ Something went wrong. Please try again.
-//           </p>
-//         )}
-//       </form>
-//     </section>
-//   );
-// };
-
-// export default Contact;
-
-
 import React, { useState } from "react";
 import { FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: "K. Ramanarayana",
-    email: "ramanarayana1228@gmail.com",
+    name: "",
+    email: "",
     message: "",
   });
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -356,7 +20,7 @@ const Contact = () => {
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Enter a valid email";
+      newErrors.email = "Enter a valid email address";
     if (!formData.message.trim()) newErrors.message = "Message is required";
     return newErrors;
   };
@@ -369,7 +33,7 @@ const Contact = () => {
       return;
     }
 
-    // Open user's default mail app with message pre-filled
+    // Open default mail app with pre-filled message
     const subject = encodeURIComponent("Frontend Developer Inquiry");
     const body = encodeURIComponent(
       `Hi Ramanarayana,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\nYou can reach me at: ${formData.email}`
@@ -378,7 +42,8 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="max-w-6xl mx-auto px-6 py-20 text-center">
+    <section id="contact"
+  className="max-w-6xl mx-auto px-6 py-20 text-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-900 dark:text-white">
         Get In <span className="text-blue-600">Touch</span>
       </h2>
@@ -422,6 +87,7 @@ const Contact = () => {
         onSubmit={handleSubmit}
         className="max-w-xl mx-auto bg-blue-50 dark:bg-gray-800 p-8 rounded-xl shadow-md"
       >
+        {/* Name Field */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Name
@@ -431,6 +97,7 @@ const Contact = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            placeholder="Enter your name"
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
             text-gray-800 dark:text-gray-100"
@@ -440,6 +107,7 @@ const Contact = () => {
           )}
         </div>
 
+        {/* Email Field */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Email
@@ -449,6 +117,7 @@ const Contact = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder="Enter your email"
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
             text-gray-800 dark:text-gray-100"
@@ -458,6 +127,7 @@ const Contact = () => {
           )}
         </div>
 
+        {/* Message Field */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Message
@@ -467,6 +137,7 @@ const Contact = () => {
             rows="4"
             value={formData.message}
             onChange={handleChange}
+            placeholder="Type your message..."
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg 
             focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-900 
             text-gray-800 dark:text-gray-100"
@@ -476,6 +147,7 @@ const Contact = () => {
           )}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="relative px-8 py-3 text-white font-semibold rounded-lg

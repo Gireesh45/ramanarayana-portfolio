@@ -21,23 +21,16 @@ const Hero = () => {
 
         {/* Buttons */}
         <div className="flex space-x-4">
-          {/* <a
-            href="#projects"
-            className="bg-blue-600 text-[ffffff] px-5 py-2 rounded-lg"
-          >
-            View Projects
-          </a> */}
           <a
-  href="#projects"
-  className="inline-block backdrop-blur-md bg-white/10 border border-blue-500/40 
-             text-blue-100 font-semibold px-6 py-2 rounded-lg
-             hover:bg-blue-600/60 hover:text-white hover:border-blue-400
-             transition-all duration-300"
->
-  View Projects
-</a>
-
-          
+            href="#projects"
+             className="inline-block backdrop-blur-md bg-white/10 border border-blue-500/40 
+               text-blue-100 font-semibold px-6 py-2 rounded-lg
+               hover:bg-blue-600/60 hover:text-white hover:border-blue-400
+               transition-all duration-300"
+            >
+               View Projects
+            </a>
+  
           <a
             href="#contact"
             className="border border-blue-600 text-blue-600 px-5 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300"
