@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { FaLinkedin, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Contact = () => {
@@ -9,6 +10,17 @@ const Contact = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [key, setKey] = useState(0); // 👈 to re-trigger animation
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#contact") {
+        setKey(prev => prev + 1);
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,7 +45,6 @@ const Contact = () => {
       return;
     }
 
-    // Open default mail app with pre-filled message
     const subject = encodeURIComponent("Frontend Developer Inquiry");
     const body = encodeURIComponent(
       `Hi Ramanarayana,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\nYou can reach me at: ${formData.email}`
@@ -41,11 +52,32 @@ const Contact = () => {
     window.location.href = `mailto:ramanarayana1228@gmail.com?subject=${subject}&body=${body}`;
   };
 
+  const headingText = "Get In Touch";
+
   return (
-    <section id="contact"
-  className="max-w-6xl mx-auto px-6 py-20 text-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section
+      id="contact"
+      key={key}
+      className="max-w-6xl mx-auto px-6 py-20 text-center 
+      bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 
+      dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+    >
+      {/* Animated Heading */}
       <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-900 dark:text-white">
-        Get In <span className="text-blue-600">Touch</span>
+        {headingText.split("").map((char, index) => (
+          <motion.span
+            key={index}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: index * 0.05,
+              duration: 0.3,
+            }}
+            className={char === "T" ? "text-blue-600" : ""}
+          >
+            {char}
+          </motion.span>
+        ))}
       </h2>
 
       <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
@@ -87,7 +119,7 @@ const Contact = () => {
         onSubmit={handleSubmit}
         className="max-w-xl mx-auto bg-blue-50 dark:bg-gray-800 p-8 rounded-xl shadow-md"
       >
-        {/* Name Field */}
+        {/* Name */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Name
@@ -107,7 +139,7 @@ const Contact = () => {
           )}
         </div>
 
-        {/* Email Field */}
+        {/* Email */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Email
@@ -127,7 +159,7 @@ const Contact = () => {
           )}
         </div>
 
-        {/* Message Field */}
+        {/* Message */}
         <div className="mb-4 text-left">
           <label className="block text-gray-700 dark:text-gray-300 mb-2">
             Message
@@ -147,7 +179,7 @@ const Contact = () => {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Button */}
         <button
           type="submit"
           className="relative px-8 py-3 text-white font-semibold rounded-lg
