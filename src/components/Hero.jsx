@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-
+import ProfileImage from "../assets/Ramanarayana-port-folio-img.jpeg";
 const Hero = () => {
   const [key, setKey] = useState(0); // 👈 force re-render
 
@@ -75,7 +74,7 @@ const Hero = () => {
       {/* Right Side Image */}
       <div className="md:w-1/2 flex justify-center mb-10 md:mb-0">
         <img
-          src="../src\assets\Ramanarayana-port-folio-img.jpeg"
+          src={ProfileImage}
           alt="Ramanarayana Kudupudi"
           className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg border-4 border-none"
         />
