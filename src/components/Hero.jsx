@@ -75,7 +75,7 @@ const Hero = () => {
       {/* Right Side Image */}
       <div className="md:w-1/2 flex justify-center mb-10 md:mb-0">
         <img
-          src="https://res.cloudinary.com/dnn94cb0w/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1761626846/DSC_6154_ysoy0w.jpg"
+          src="../src\assets\Ramanarayana-port-folio-img.jpeg"
           alt="Ramanarayana Kudupudi"
           className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg border-4 border-none"
         />
