@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import ProfileImage from "../assets/Ramanarayana-port-folio-img.jpeg";
 const Hero = () => {
   const [key, setKey] = useState(0); // 👈 force re-render
